@@ -7,7 +7,7 @@ export const gamesRoute = Router()
 gamesRoute.get('/', gamesController.findAll)
 gamesRoute.post('/', gamesController.create)
 gamesRoute.get('/:id', gamesController.retrieve)
-gamesRoute.put('/:id', gamesController.update)
+gamesRoute.put('/:id', gamesMiddleware.ensureIdExists, gamesController.update)
 gamesRoute.delete(
     '/:id',
     gamesMiddleware.ensureIdExists,

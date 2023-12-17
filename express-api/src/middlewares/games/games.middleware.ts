@@ -3,7 +3,7 @@ import { gamesService } from '../../services/games/games.service'
 import { gameIdParamSchema } from '../../schemas/games/games.schema'
 
 class GamesMiddleware {
-    async ensureIdExists(req: Request, res: Response, next: NextFunction) {
+    async ensureIdExists(req: Request, _: Response, next: NextFunction) {
         const gameId = gameIdParamSchema.parse(req.params.id)
 
         if (gameId) {

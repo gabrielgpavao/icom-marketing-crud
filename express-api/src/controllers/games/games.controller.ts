@@ -8,7 +8,7 @@ import {
 } from '../../schemas/games/games.schema'
 
 class GamesController {
-    async findAll(req: Request, res: Response<Game[]>): Promise<Response> {
+    async findAll(_: Request, res: Response<Game[]>): Promise<Response> {
         const games = await gamesService.findAll()
 
         return res.status(HttpStatus.OK).json(games)
@@ -30,8 +30,14 @@ class GamesController {
         return res.status(HttpStatus.OK).json(game)
     }
 
-    async update(req: Request, res: Response): Promise<Response> {
-        return res.status(HttpStatus.OK).json()
+    async update(req: Request, res: Response<Game>): Promise<Response> {
+        const gameId = gameIdParamSchema.parse(req.params.id)
+
+        const updateGameData = createGameSchema.parse(req.body)
+
+        const game = await gamesService.update(gameId, updateGameData)
+
+        return res.status(HttpStatus.OK).json(game)
     }
 
     async delete(req: Request, res: Response<void>): Promise<Response> {

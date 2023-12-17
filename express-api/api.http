@@ -19,4 +19,16 @@ content-type: application/json
 }
 
 ###
+PUT http://localhost:3000/games/8
+content-type: application/json
+
+{
+    "nome": "Spider Man",
+	"descricao": "Jogo do Homem Aranha",
+	"produtora": "Sony",
+	"ano": 2023,
+	"idadeMinima": 14
+}
+
+###
 DELETE http://localhost:3000/games/10
