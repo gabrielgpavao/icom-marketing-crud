@@ -4,4 +4,19 @@ https://academico.espm.br/testeapi/jogo
 GET http://localhost:3000/games
 
 ###
-GET http://localhost:3000/games/ab
+GET http://localhost:3000/games/1
+
+###
+POST http://localhost:3000/games
+content-type: application/json
+
+{
+    "nome": "Spider Man 2",
+	"descricao": "Jogo do Homem Aranha",
+	"produtora": "Sony",
+	"ano": 2023,
+	"idadeMinima": 14
+}
+
+###
+DELETE http://localhost:3000/games/10

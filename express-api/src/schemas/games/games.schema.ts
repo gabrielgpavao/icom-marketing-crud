@@ -4,7 +4,7 @@ const createGameSchema = z.object({
     nome: z.string(),
     descricao: z.string(),
     produtora: z.string(),
-    ano: z.number().min(4).max(4),
+    ano: z.number(),
     idadeMinima: z.number(),
 })
 

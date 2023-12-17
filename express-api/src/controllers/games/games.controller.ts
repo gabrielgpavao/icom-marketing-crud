@@ -2,7 +2,10 @@ import { Request, Response } from 'express'
 import { Game } from '../../entities/games/games.entity'
 import { HttpStatus } from '../../constants/HttpStatus'
 import { gamesService } from '../../services/games/games.service'
-import { gameIdParamSchema } from '../../schemas/games/games.schema'
+import {
+    createGameSchema,
+    gameIdParamSchema,
+} from '../../schemas/games/games.schema'
 
 class GamesController {
     async findAll(req: Request, res: Response<Game[]>): Promise<Response> {
@@ -11,8 +14,12 @@ class GamesController {
         return res.status(HttpStatus.OK).json(games)
     }
 
-    async create(req: Request, res: Response): Promise<Response> {
-        return res.status(HttpStatus.CREATED).json()
+    async create(req: Request, res: Response<Game>): Promise<Response> {
+        const createGameData = createGameSchema.parse(req.body)
+
+        const game = await gamesService.create(createGameData)
+
+        return res.status(HttpStatus.CREATED).json(game)
     }
 
     async retrieve(req: Request, res: Response<Game>): Promise<Response> {
@@ -27,11 +34,15 @@ class GamesController {
         return res.status(HttpStatus.OK).json()
     }
 
-    async delete(req: Request, res: Response): Promise<Response> {
+    async delete(req: Request, res: Response<void>): Promise<Response> {
+        const gameId = gameIdParamSchema.parse(req.params.id)
+
+        await gamesService.delete(gameId)
+
         return res.status(HttpStatus.NO_CONTENT).json()
     }
 }
 
 const gamesController = new GamesController()
 
-export { GamesController, gamesController }
+export { gamesController }

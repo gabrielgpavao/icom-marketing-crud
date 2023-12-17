@@ -11,7 +11,13 @@ class GamesServices {
         return data
     }
 
-    async create(data: tCreateGameInput): Promise<Game> {}
+    async create(createGameData: tCreateGameInput): Promise<Game> {
+        const { data } = await api.post<number>('/jogo', createGameData)
+        return {
+            id: data,
+            ...createGameData,
+        }
+    }
 
     async retrieve(id: number): Promise<Game> {
         try {
@@ -34,9 +40,12 @@ class GamesServices {
     }
 
     async update(id: number, data: tCreateGameInput): Promise<Game> {}
-    async delete(id: number): Promise<Game> {}
+
+    async delete(id: number): Promise<void> {
+        await api.delete('/jogo/' + id)
+    }
 }
 
 const gamesService = new GamesServices()
 
-export { GamesServices, gamesService }
+export { gamesService }
