@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import { ZodError } from 'zod'
 import { AppError } from '../../constants/AppError'
 import { HttpStatus } from '../../constants/HttpStatus'
+import { AxiosError } from 'axios'
 
 export function handleErrorsMiddleware(
     error: Error,
@@ -26,6 +27,17 @@ export function handleErrorsMiddleware(
         return response
             .status(HttpStatus.BAD_REQUEST)
             .json({ message: error.flatten().formErrors })
+    }
+
+    if (error instanceof AxiosError) {
+        const { code, name, message } = error
+
+        console.error({ code, name, message })
+
+        return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            name: 'AxiosError',
+            message: 'Internal server error',
+        })
     }
 
     console.error(error)
