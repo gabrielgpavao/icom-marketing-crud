@@ -1,5 +1,5 @@
-export class Games {
-    readonly id: string
+export class Game {
+    readonly id: number
     nome: string
     descricao: string
     produtora: string
