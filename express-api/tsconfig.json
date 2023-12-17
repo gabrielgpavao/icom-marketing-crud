@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES2021",
+		"module": "CommonJS",
+		"typeRoots": ["src/@types", "node_modules/@types"],
+		"declaration": true,
+    	"removeComments": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"exactOptionalPropertyTypes": true,
+		"skipLibCheck": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"strictPropertyInitialization": false,
+		"sourceMap": true,
+    	"outDir": "./dist",
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}
