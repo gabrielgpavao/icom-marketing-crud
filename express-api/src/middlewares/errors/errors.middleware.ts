@@ -30,7 +30,10 @@ export function handleErrorsMiddleware(
     }
 
     if (error instanceof AxiosError) {
-        console.error(error)
+        const { code, name, message } = error
+
+        console.error({ code, name, message })
+
         return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             name: 'AxiosError',
             message: 'Internal server error',

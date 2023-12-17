@@ -8,4 +8,9 @@ const createGameSchema = z.object({
     idadeMinima: z.number(),
 })
 
-export { createGameSchema }
+const gameIdParamSchema = z
+    .string()
+    .regex(/^[0-9]+$/, 'Game ID must be an integer')
+    .transform((value) => parseInt(value, 10))
+
+export { createGameSchema, gameIdParamSchema }
